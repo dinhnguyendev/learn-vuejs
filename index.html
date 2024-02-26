@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="obj">
+        <div id="hello">hihi</div>
+        <div v-html="textHtml" ></div>
+        <div v-once>{{noidung}} - {{showPost()}}</div>
+        {{showBody()}}
+        <a v-bind:href="link">facebookLink</a>
+
+
+        <div>
+            <h2 class="">Lắng nghe sự kiện</h2>
+            <button v-on:click="addNumber">Add</button>
+            <button v-on:click="dem++">Add Not create function</button>
+            <p>{{ dem }}</p>
+            <p v-on:mousemove="tinhToaDo">Toa do cua chuot {{ x }} / {{y}}</p>
+            <div v-on:mousemove.stop="" class="">Stop sự kiện</div>
+            <input type="text" @keyup.enter="banphim" name="" id="" />
+        </div>
+
+        <div class="">
+            <h2>Binding data</h2>
+            <div class="">
+                <input type="text" v-model="name"/>
+                <p>{{name}}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            new Vue({
+                el: "#obj",
+                data:{
+                    noidung: "chao cac ban",
+                    body: "show body",
+                    link:"https://www.facebook.com/nguyenngocdinh2000",
+                    textHtml: "<a href='http://www.facebook.com'>Get Link Html</a>",
+                    dem:0,
+                    x:0,
+                    y:0,
+                    name:"Sky alert"
+                },
+                methods:{
+                    sayHello:function(){
+                        document.write("Hello")
+                    },
+                    showBody:function(){
+                        return this.body;
+                    },
+                    showPost:function(){
+                        this.noidung = "chao cac ban noi dung nay da duoc cap nhat";
+                        return this.noidung;
+
+                    },
+                    addNumber:function(){
+                        this.dem++;
+                    },
+                    tinhToaDo:function(event){
+                        console.log(event);
+                        this.x =event.clientX;
+                        this.y=event.clientY;
+                    },
+                    banphim:function(){
+                        alert("hello ban phim!");
+                
+                    }
+                    
+                }
+            })
+
+    </script>
+</body>
+</html>
