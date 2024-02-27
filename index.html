@@ -5,13 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="vue.js"></script>
     <title>Document</title>
+    <style>
+        .vuong{
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            background-color: gray;
+            margin-top: 10px;
+        }
+        .do{
+            background-color: red;
+        }
+        .xanhduong{
+            background-color: blue;
+        }
+        .xanhlacay{
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
     <div id="obj">
         <div id="hello">hihi</div>
         <div v-html="textHtml" ></div>
-        <div v-once>{{noidung}} - {{showPost()}}</div>
-        {{showBody()}}
+        <div v-once >{{getnoidung()}}</div>
+        <div>{{banphim()}}</div>
+        <div>{{showPost()}}</div>
+        <div>Điểm của học sinh : {{diem}}</div>
+        <input type="text"  :value="diem" @input="event => diem = event.target.value"/>
+        <!-- <button v-on:click="setDiem">Set Điểm</button> -->
+        <!-- {{showBody()}}
         <a v-bind:href="link">facebookLink</a>
 
 
@@ -30,7 +53,33 @@
             <div class="">
                 <input type="text" v-model="name"/>
                 <p>{{name}}</p>
+                <p>{{sayHi()}}</p>
             </div>
+        </div>
+        -->
+        <div class="">
+            <h2>Optimize performance code</h2>
+            <div class="">
+                
+                <p>Gia tri B: {{tangb}}</p>
+                <p>Gia tri B: {{tangbf()}}</p>
+                <p>Gia tri A: {{tanga}}</p>
+                <p>Gia tri A: {{tangaf()}}</p>
+                
+                <button v-on:click="a++">Tang a</button>
+                <button v-on:click="b++">Tang b</button>
+            </div>
+        </div>
+
+        <div class="handle-css">
+            <div class="vuong vuong-1" @click="handleChangeColor"></div>
+            <div class="vuong vuong-2"  @click="handleChangeColor"></div>
+            <div class="vuong vuong-3" @click="handleChangeColor"></div>
+
+
+            
+            <div class="vuong" :class="color"></div>
+            <input type="text" v-model="color">
         </div>
     </div>
 
@@ -38,28 +87,63 @@
             new Vue({
                 el: "#obj",
                 data:{
-                    noidung: "chao cac ban",
+                    noidung: "noi dung ban dau",
                     body: "show body",
                     link:"https://www.facebook.com/nguyenngocdinh2000",
                     textHtml: "<a href='http://www.facebook.com'>Get Link Html</a>",
                     dem:0,
                     x:0,
                     y:0,
-                    name:"Sky alert"
+                    name:"Sky alert",
+                    a:0,
+                    b:0,
+                    hi:"HIHHIHHIHIHHIHIHII",
+                    diem: 0,
+                    quanlydo:false,
+                    color:"xanhlacay"
+                },
+                computed:{
+                    tanga: function(){
+                        console.log("computed a");
+                        return this.a;
+                    },
+                    tangb: function(){
+                        console.log("computed b");
+                        return this.b;
+                    },
+                },
+                watch:{
+                    diem: function(newValue){
+                        console.log("watch diem " + newValue);
+                        if(newValue > 10){
+                            console.log("watch diem " + "WARNING !!!");
+                        }
+                    }
                 },
                 methods:{
                     sayHello:function(){
+                        console.log("function test say hello");
                         document.write("Hello")
                     },
+                    
+                    sayHi:function(){
+                        console.log("function test say hi");
+                        return this.hi;
+                
+                    },
                     showBody:function(){
+                        console.log("function test say body");
                         return this.body;
                     },
                     showPost:function(){
-                        this.noidung = "chao cac ban noi dung nay da duoc cap nhat";
+                        
+                        this.noidung = "noi dung da duoc updated";
+                        console.log("function set: " + this.noidung);
                         return this.noidung;
 
                     },
                     addNumber:function(){
+                        console.log("function test say dem");
                         this.dem++;
                     },
                     tinhToaDo:function(event){
@@ -68,10 +152,37 @@
                         this.y=event.clientY;
                     },
                     banphim:function(){
-                        alert("hello ban phim!");
-                
+                        console.log("hello ban phim!");
+                    },
+                    tangaf: function(){
+                        console.log("function a");
+                        return this.a;
+                    },
+                    tangbf: function(){
+                        console.log("function b");
+                        return this.b;
+                    },
+                    getnoidung:function(){
+                        console.log("function get: " + this.noidung);
+                        return this.noidung;
+                    },
+                    setDiem:function(){
+                        this.diem++;
+                    },
+                    handleChangeColor: function(event){
+                        // for(i=1;i<5;i++){
+                        // }
+                        // console.log(event);
+                        // const className=event.target.classList[1];
+                     
+                        // const element=document.querySelector(".vuong-2");
+                        // console.log(element);
+
+                        // element.classList.add("do");
+                        
+
+                        
                     }
-                    
                 }
             })
 
